@@ -3,10 +3,39 @@
 <head>
 	<meta charset="UTF-8">
 </head>
+<style>
+	body {
+		text-align: center;
+	}
+</style>
 <body>
+	<h1>Rock, Paper, Scissors.</h1>
 	<script>
+		const body = document.querySelector('body');
+		const h1 = document.createElement('h1');
+		h1.textContent = 'Rock, Paper, Scissors.';
+		body.appendChild(h1);
+   
+        const p = document.createElement('p');
+		p.textContent = 'Make your choice to start the game.';
+		body.appendChild(p);
+
+		const Rock = document.createElement('button');
+		Rock.textContent = 'Rock';
+		body.appendChild(Rock);
+
+		const Paper = document.createElement('button');
+		Paper.textContent = 'Paper';
+		body.appendChild(Paper);
+
+		const Scissors = document.createElement('button');
+		Scissors.textContent = 'Scissors';
+		body.appendChild(Scissors);
+
+
 		let playerScore = 0;
 		let computerScore = 0;
+		let isGameStarted = false;
 
 		game();
 
