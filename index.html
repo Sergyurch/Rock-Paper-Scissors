@@ -9,8 +9,8 @@
 	}
 </style>
 <body>
-	<h1>Rock, Paper, Scissors.</h1>
 	<script>
+		"use strict";
 		const body = document.querySelector('body');
 		const h1 = document.createElement('h1');
 		h1.textContent = 'Rock, Paper, Scissors.';
@@ -20,24 +20,34 @@
 		p.textContent = 'Make your choice to start the game.';
 		body.appendChild(p);
 
+		const divButtons = document.createElement('div');
+		body.appendChild(divButtons);
+
 		const Rock = document.createElement('button');
 		Rock.textContent = 'Rock';
-		body.appendChild(Rock);
+		divButtons.appendChild(Rock);
 
 		const Paper = document.createElement('button');
 		Paper.textContent = 'Paper';
-		body.appendChild(Paper);
+		divButtons.appendChild(Paper);
 
 		const Scissors = document.createElement('button');
 		Scissors.textContent = 'Scissors';
-		body.appendChild(Scissors);
+		divButtons.appendChild(Scissors);
+
+		divButtons.addEventListener('click', function(e) {
+			if(!isGameStarted) {
+				isGameStarted = true;
+			}
+			playOneRound(e.target.textContent);
+		});
 
 
 		let playerScore = 0;
 		let computerScore = 0;
 		let isGameStarted = false;
 
-		game();
+		//game();
 
 		function computerPlay() {
 			let random = Math.floor((Math.random() * 3)) + 1;
@@ -46,33 +56,33 @@
 		
 		function playOneRound(playerSelection, computerSelection) {
 			computerSelection = computerPlay();
-			console.log("Computer chooses " +computerSelection +".");
+			p.textContent = "Computer\'s choice is " +computerSelection +". ";
 	        if (playerSelection == "Rock" && computerSelection == "Paper") {
 	        	computerScore++;
-	        	console.log("You lose the round. Paper beats Rock.");
+	        	p.textContent += "You lose the round. Paper beats Rock. Make your choice again.";
         	} 
         	else if (playerSelection == "Rock" && computerSelection == "Scissors") {
 				playerScore++;    
-        		console.log("You win the round. Rock beats Scissors.");
+        		p.textContent += "You win the round. Rock beats Scissors. Paper beats Rock. Make your choice again.";
         	}
         	else if (playerSelection == "Paper" && computerSelection == "Rock") {
 				playerScore++;
-        		console.log("You win the round. Rock beats Scissors.");
+        		p.textContent += "You win the round. Rock beats Scissors. Paper beats Rock. Make your choice again.";
     		}
     		else if (playerSelection == "Paper" && computerSelection == "Scissors") {
 			    computerScore++;
-    			console.log("You lose the round. Scissors beat Paper.");
+    			p.textContent += "You lose the round. Scissors beat Paper. Paper beats Rock. Make your choice again.";
 			}
 			else if (playerSelection == "Scissors" && computerSelection == "Rock") {
 				computerScore++;
-				console.log("You lose the round. Rock beats Scissors.");
+				p.textContent += "You lose the round. Rock beats Scissors. Paper beats Rock. Make your choice again.";
 			}
 			else if (playerSelection == "Scissors" && computerSelection == "Paper") {
 				playerScore++;
-				console.log("You win the round. Scissors beat Paper.");
+				p.textContent += "You win the round. Scissors beat Paper. Paper beats Rock. Make your choice again.";
 			}
 			else {
-				console.log("Draw." +playerSelection +" and " +computerSelection +".");
+				p.textContent += "Draw." +playerSelection +" and " +computerSelection +". Paper beats Rock. Make your choice again.";
 			}      
 		}
 
