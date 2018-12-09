@@ -35,9 +35,21 @@
 		Scissors.textContent = 'Scissors';
 		divButtons.appendChild(Scissors);
 
+		const divScore = document.createElement('div');
+		const h2Score = document.createElement('h2');
+		h2Score.textContent = 'Score:';
+		divScore.appendChild(h2Score);
+		const pScore = document.createElement('p');
+		pScore.innerHTML = 'You: <span id="playerScore"></span><br>Computer: <span id="computerScore"></span>';
+		divScore.appendChild(pScore);
+		divScore.style.display = 'none';
+		body.appendChild(divScore);
+		
+
 		divButtons.addEventListener('click', function(e) {
 			if(!isGameStarted) {
 				isGameStarted = true;
+				divScore.style.display = 'block';
 			}
 			playOneRound(e.target.textContent);
 		});
@@ -47,8 +59,6 @@
 		let computerScore = 0;
 		let isGameStarted = false;
 
-		//game();
-
 		function computerPlay() {
 			let random = Math.floor((Math.random() * 3)) + 1;
 			return (random == 1) ? "Rock": (random == 2) ? "Paper": "Scissors";
@@ -56,7 +66,7 @@
 		
 		function playOneRound(playerSelection, computerSelection) {
 			computerSelection = computerPlay();
-			p.textContent = "Computer\'s choice is " +computerSelection +". ";
+			p.textContent = "Computers\' choice is " +computerSelection +". ";
 	        if (playerSelection == "Rock" && computerSelection == "Paper") {
 	        	computerScore++;
 	        	p.textContent += "You lose the round. Paper beats Rock. Make your choice again.";
@@ -82,39 +92,33 @@
 				p.textContent += "You win the round. Scissors beat Paper. Paper beats Rock. Make your choice again.";
 			}
 			else {
-				p.textContent += "Draw." +playerSelection +" and " +computerSelection +". Paper beats Rock. Make your choice again.";
-			}      
+				p.textContent += "Draw. " +playerSelection +" and " +computerSelection +". Paper beats Rock. Make your choice again.";
+			}
+
+			let playerScoreSpan = document.getElementById('playerScore');
+			playerScoreSpan.textContent = playerScore;
+
+			let computerScoreSpan = document.getElementById('computerScore');
+			computerScoreSpan.textContent = computerScore;
+
+			if(playerScore == 5) {
+				alert('You win.');
+				gameIsFinished();
+			} 
+			if(computerScore == 5) {
+				alert('Computer win.');
+				gameIsFinished();
+			}     
+
 		}
 
-		function game() {
-			for (let i = 0; i<5; i++) {
-			    let playerSelection = prompt('Choose "Rock", "Paper" or "Scissors"');
-			    while (playerSelection === '' || playerSelection === null) {
-			    	alert('You need to write something');
-				    playerSelection = prompt('Choose "Rock", "Paper" or "Scissors"');
-			    }
-			    while ( !(playerSelection == 'Rock' || playerSelection == 'Paper' || playerSelection == 'Scissors') ) {
-			    	alert('You need to write only "Rock", "Paper" or "Scissors"');
-				    playerSelection = prompt('Choose "Rock", "Paper" or "Scissors"');
-				    playerSelection = playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1).toLowerCase();
-			    }
-			   playOneRound(playerSelection);
-		   	}
-
-		   	console.log("Total score: You " +playerScore +", Computer " +computerScore);
-
-		   	if (playerScore > computerScore) {
-		   		console.log("You win the game");
-		   	} else if (playerScore < computerScore) {
-		   		console.log("You lose the game");
-		   	} else {
-		   		console.log("Draw");
-		   	}
-
-		   	console.log("Restart page to play again");
-		}
-
-				
+        function gameIsFinished() {
+			playerScore = 0;
+			computerScore = 0;
+			isGameStarted = false;
+			divScore.style.display = 'none';
+			p.textContent = 'Make your choice to start the game.';
+        }		
 	</script>
 </body>
 </html>
