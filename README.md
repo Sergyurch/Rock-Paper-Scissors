@@ -1,1 +1,2 @@
-This is "Rock, Paper, Scissors" game
+This is "Rock, Paper, Scissors" game <br>
+https://sergyurch.github.io/Rock-Paper-Scissors/
